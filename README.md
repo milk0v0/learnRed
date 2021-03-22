@@ -25,5 +25,6 @@
 
 1. 语言基础
     + JavaScript 基本数据类型
-        - [Number](https://juejin.cn/post/6942162373557878798/#heading-0)
-        - [String](https://juejin.cn/post/6942162373557878798#heading-6)
+        - [Number](https://github.com/milk0v0/learnRed/blob/master/1.%20JavaScript%20%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Number%20%E5%92%8C%20String.md#%E5%85%B3%E4%BA%8E-number)
+        - [String](https://github.com/milk0v0/learnRed/blob/master/1.%20JavaScript%20%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/Number%20%E5%92%8C%20String.md#%E5%85%B3%E4%BA%8Estring)
+
