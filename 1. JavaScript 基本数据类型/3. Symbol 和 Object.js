@@ -54,3 +54,80 @@
 
     // console.log(Symbol.keyFor('symbol')); // TypeError: symbol is not a symbol
 }
+
+{
+    let s1 = Symbol('foo'),
+        s2 = Symbol('bar'),
+        s3 = Symbol('baz'),
+        s4 = Symbol('qux');
+    let o = {
+        [s1]: 'foo val'
+    }
+    console.log(o); // {Symbol(foo): "foo val"}
+
+    Object.defineProperty(o, s2, { value: 'bar val' });
+    console.log(o); // {Symbol(foo): "foo val", Symbol(bar): "bar val"}
+
+    Object.defineProperties(o, {
+        [s3]: { value: 'baz val' },
+        [s4]: { value: 'qux val' }
+    });
+    console.log(o); // {Symbol(foo): "foo val", Symbol(bar): "bar val", Symbol(baz): "baz val", Symbol(qux): "qux val"}
+}
+
+{
+    let s1 = Symbol('foo'),
+        s2 = Symbol('bar');
+    let o = {
+        [s1]: 'foo val',
+        [s2]: 'bar val',
+        baz: 'baz val',
+        qux: 'qux val'
+    }
+
+    console.log(Object.getOwnPropertySymbols(o)); // [Symbol(foo), Symbol(bar)]
+    console.log(Object.getOwnPropertyNames(o)); // ["baz", "qux"]
+
+    console.log(Object.getOwnPropertyDescriptors(o)); // {baz: {configurable: true, enumerable: true, value: "baz val", writable: true}, qux: {…}, Symbol(foo): {…}, Symbol(bar): {…}}
+    console.log(Reflect.ownKeys(o)); // ["baz", "qux", Symbol(foo), Symbol(bar)]
+}
+
+{
+    let o = {
+        [Symbol('foo')]: 'foo val',
+        [Symbol('bar')]: 'bar val'
+    }
+    console.log(o); // {Symbol(foo): "foo val", Symbol(bar): "bar val"}
+
+    let barSymbol = Object.getOwnPropertySymbols(o).find(symbol => symbol.toString().match(/bar/));
+    console.log(barSymbol); // Symbol(bar)
+}
+
+{
+    function Foo() { }
+    class Bar { }
+    let foo = new Foo();
+    let bar = new Bar();
+
+    console.log(foo instanceof Foo); // true
+    console.log(bar instanceof Bar); // true
+
+    console.log(Foo[Symbol.hasInstance](foo)); // true
+    console.log(Bar[Symbol.hasInstance](bar)); // true
+}
+
+{
+    class Bar { }
+    class Baz extends Bar {
+        static [Symbol.hasInstance]() {
+            return false;
+        }
+    }
+
+    let b = new Baz();
+    console.log(b instanceof Bar); // true
+    console.log(Bar[Symbol.hasInstance](b)); // true
+    
+    console.log(b instanceof Baz); // false
+    console.log(Baz[Symbol.hasInstance](b)); // false
+}
